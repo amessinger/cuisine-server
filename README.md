@@ -1,0 +1,21 @@
+# Cuisine server
+
+## Prerequisites
+
+[Docker](https://www.docker.com/get-started)
+
+## Setup
+
+Create a new configuration file off of the sample one:
+
+`cp env-sample .env` (make optional edits)
+
+## Run
+
+`docker-compose up`
+
+## Develop
+
+Use any editor compatible with devcontainers. Ideally [Microsoft Visual Studio Code](https://code.visualstudio.com/) or [Github Code Spaces](https://github.com/features/codespaces).
+
+If you don't want to use neither, you should be able to start `docker-compose` with `./devcontainer/docker-compose.yml` as configuration file. You'll be missing `yarn` which is used for managing packages which can be added by running `apk add --no-cache yarn; yarn`.
