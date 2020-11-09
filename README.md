@@ -18,4 +18,6 @@ Create a new configuration file off of the sample one:
 
 Use any editor compatible with devcontainers. Ideally [Microsoft Visual Studio Code](https://code.visualstudio.com/) or [Github Code Spaces](https://github.com/features/codespaces).
 
-If you don't want to use neither, you should be able to start `docker-compose` with `./devcontainer/docker-compose.yml` as configuration file. You'll be missing `yarn` which is used for managing packages which can be added by running `apk add --no-cache yarn; yarn`.
+If you don't want to use neither, you should be able to start `docker-compose` with `./devcontainer/docker-compose.yml` as configuration file, like so: `docker-compose --project-name server -f docker-compose.yml -f .devcontainer/docker-compose.yml up --build`.
+
+You'll be missing `yarn` which is used for managing packages which can be added by running `apk add --no-cache yarn; yarn` in a terminal in the server container.
