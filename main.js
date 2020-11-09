@@ -18,7 +18,7 @@ const sequelize = new Sequelize(
 async function testDatabase() {
   try {
     await sequelize.authenticate()
-    console.log('Connection has been established successfully.')
+    console.log('Connection to the database has been established successfully.')
   } catch (error) {
     console.error('Unable to connect to the database:', error)
   }
@@ -34,6 +34,6 @@ server.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-server.listen(env.SERVICE_PORT, () => {
-  console.log(`Example server listening at http://localhost:${env.SERVER_PORT}`)
+server.listen(env.SERVER_PORT, env.SERVER_HOST, () => {
+  console.log(`Server listening at http://${env.SERVER_HOST}:${env.SERVER_PORT}`)
 })
