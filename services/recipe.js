@@ -1,17 +1,35 @@
+import { ServiceError, ResourceDoesNotExistError } from '../utils/services.js';
 import Recipe from '../models/recipe.js';
 
 export async function findAll() {
-  return await Recipe.findAll();
+  try {
+    return await Recipe.findAll();
+  } catch (error) {
+    throw new ServiceError(error);
+  }
 }
 
 export async function find(id) {
-  return await Recipe.findByPk(id);
+  const resource = await Recipe.findByPk(id);
+  if (resource) {
+    return await Recipe.findByPk(id);
+  } else {
+    throw new ResourceDoesNotExistError();
+  }
 }
 
 export async function create(data) {
-  return await Recipe.create(data);
+  try {
+    return await Recipe.create(data);
+  } catch (error) {
+    throw new ServiceError(error);
+  }
 }
 
 export async function update(id, data) {
-  return await Recipe.update(data, { where: { id } });
+  try {
+    return await Recipe.update(data, { where: { id } });
+  } catch (error) {
+    throw new ServiceError(error);
+  }
 }

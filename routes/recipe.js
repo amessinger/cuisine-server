@@ -1,4 +1,5 @@
 import { findAll, find, create, update } from '../services/recipe.js';
+import { handleErrorResponse } from '../utils/routes.js';
 
 export default {
   'GET /recipes': async function(req, res) {
@@ -7,7 +8,7 @@ export default {
       res.json(result);  
     } catch (error) {
       console.log(error);
-      res.status(500).send('Something broke!');
+      handleErrorResponse(error, res);
     }
   },
   'POST /recipes': async function(req, res) {
@@ -16,7 +17,7 @@ export default {
       res.json(result);
     } catch (error) {
       console.log(error);
-      res.status(500).send('Something broke!');
+      handleErrorResponse(error, res);
     }
   },
   'GET /recipes/:id': async function(req, res) {
@@ -24,8 +25,7 @@ export default {
       const result = await find(req.params.id);
       res.json(result);  
     } catch (error) {
-      console.log(error);
-      res.status(500).send('Something broke!');
+      handleErrorResponse(error, res);
     }
   },
   'PUT /recipes/:id': async function(req, res) {
@@ -33,8 +33,7 @@ export default {
       const result = await update(req.params.id, req.body);
       res.json(result);
     } catch (error) {
-      console.log(error);
-      res.status(500).send('Something broke!');
+      handleErrorResponse(error, res);
     }
   }
 };
