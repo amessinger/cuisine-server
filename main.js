@@ -15,6 +15,17 @@ const sequelize = new Sequelize(
   }
 );
 
+async function loadResourceModel(resourceName) {
+  try {
+    const { init } = await import(`./models/${resourceName}.js`);
+    init(sequelize);
+  } catch (error) {
+    console.log(`could not load model for resource '${resourceName}'`, error);
+  }
+}
+
+loadResourceModel('recipe');
+
 async function testDatabase() {
   try {
     await sequelize.authenticate();
@@ -26,13 +37,38 @@ async function testDatabase() {
 
 testDatabase();
 
+(async () => {
+  await sequelize.sync({force: true});
+  await sequelize.models.recipe.sync({ force: true });
+  await sequelize.models.recipe.create({
+    title: 'Brownie',
+    body: 'some recipe'
+  });
+})();
+
 // SERVER
 import express from 'express';
 const server = express();
 
+server.use(express.json());
+
 server.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+async function loadResourceRoutes(resourceName) {
+  try {
+    const { default: routes } = await import(`./routes/${resourceName}.js`);
+    Object.keys(routes).forEach(entry => {
+      const [method, path] = entry.split(' ');
+      server[method.toLowerCase()](path, routes[entry]);
+    });
+  } catch (error) {
+    console.log(`could not road routes for resource '${resourceName}'`, error);
+  }
+}
+
+loadResourceRoutes('recipe');
 
 server.listen(env.SERVER_PORT, env.SERVER_HOST, () => {
   console.log(`Server listening at http://${env.SERVER_HOST}:${env.SERVER_PORT}`);
