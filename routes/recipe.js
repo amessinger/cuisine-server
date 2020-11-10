@@ -1,4 +1,4 @@
-import { findAll, find, create, update } from '../services/recipe.js';
+import { findAll, find, create, update, patch } from '../services/recipe.js';
 import { handleErrorResponse } from '../utils/routes.js';
 
 export default {
@@ -31,6 +31,14 @@ export default {
   'PUT /recipes/:id': async function(req, res) {
     try {
       const result = await update(req.params.id, req.body);
+      res.json(result);
+    } catch (error) {
+      handleErrorResponse(error, res);
+    }
+  },
+  'PATCH /recipes/:id': async function(req, res) {
+    try {
+      const result = await patch(req.params.id, req.body);
       res.json(result);
     } catch (error) {
       handleErrorResponse(error, res);

@@ -1,4 +1,4 @@
-import { ServiceError, ResourceDoesNotExistError } from '../utils/services.js';
+import { ServiceError, ResourceDoesNotExistError, IncorrectPayloadError, filterPayload } from '../utils/services.js';
 import Recipe from '../models/recipe.js';
 
 export async function findAll() {
@@ -26,7 +26,19 @@ export async function create(data) {
   }
 }
 
-export async function update(id, data) {
+export async function update(id, payload) {
+  const filteredPayload = filterPayload(Recipe, payload);
+  if (Object.keys(filteredPayload).length !== Recipe.publicAttributes.length) {
+    throw new IncorrectPayloadError();
+  }
+  try {
+    return await Recipe.update(filteredPayload, { where: { id } });
+  } catch (error) {
+    throw new ServiceError(error);
+  }
+}
+
+export async function patch(id, data) {
   try {
     return await Recipe.update(data, { where: { id } });
   } catch (error) {
