@@ -66,7 +66,7 @@ async function loadResourceRoutes(resourceName) {
       server[method.toLowerCase()](path, routes[entry]);
     });
   } catch (error) {
-    console.log(`could not road routes for resource '${resourceName}'`, error);
+    console.log(`could not load routes for resource '${resourceName}'`, error);
   }
 }
 
