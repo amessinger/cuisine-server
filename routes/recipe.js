@@ -1,4 +1,4 @@
-import { findAll, find, create, update, patch } from '../services/recipe.js';
+import { findAll, find, create, update, patch, _delete } from '../services/recipe.js';
 import { handleErrorResponse } from '../utils/routes.js';
 
 export default {
@@ -43,5 +43,13 @@ export default {
     } catch (error) {
       handleErrorResponse(error, res);
     }
+  },
+  'DELETE /recipes/:id': async function(req, res) {
+    try {
+      await _delete(req.params.id);
+      res.sendStatus(200);
+    } catch (error) {
+      handleErrorResponse(error, res);
+    }
   }
-};
+}; 

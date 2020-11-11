@@ -47,3 +47,23 @@ export async function patch(id, payload) {
     throw new ServiceError(error);
   }
 }
+
+export async function _delete(id) {
+  let record;
+
+  try {
+    record = await Recipe.findByPk(id);
+  } catch (error) {
+    throw new ServiceError(error);
+  }
+   
+  if (!record) {
+    throw new ResourceDoesNotExistError();
+  }
+
+  try {
+    await record.destroy();
+  } catch (error) {
+    throw new ServiceError(error);
+  }
+}

@@ -100,3 +100,16 @@ it('PATCH /recipes', async done => {
   expect(await database.models.recipe.count()).toBe(1);
   done();
 });
+
+it('DELETE /recipes/1', async done => {
+  await database.models.recipe.create({
+    title: 'title',
+    body: 'body'
+  });
+
+  const response = await request.delete('/recipes/1');
+
+  expect(response.status).toBe(200);
+  expect(await database.models.recipe.count()).toBe(0);
+  done();
+});
