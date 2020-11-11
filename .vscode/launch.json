@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Start server",
-      "program": "${workspaceFolder}/main.js"
+      "program": "${workspaceFolder}/start.js"
     }
   ]
 }

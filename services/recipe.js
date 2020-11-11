@@ -32,15 +32,17 @@ export async function update(id, payload) {
     throw new IncorrectPayloadError();
   }
   try {
-    return await Recipe.update(filteredPayload, { where: { id } });
+    const [,[record]] = await Recipe.update(filteredPayload, { where: { id }, returning: true });
+    return record;
   } catch (error) {
     throw new ServiceError(error);
   }
 }
 
-export async function patch(id, data) {
+export async function patch(id, payload) {
   try {
-    return await Recipe.update(data, { where: { id } });
+    const [,[record]] = await Recipe.update(payload, { where: { id }, returning: true });
+    return record;
   } catch (error) {
     throw new ServiceError(error);
   }
