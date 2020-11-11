@@ -47,6 +47,21 @@ it('POST /recipes', async done => {
   done();
 });
 
+it('GET /recipes/1', async done => {
+  await database.models.recipe.create({
+    title: 'title',
+    body: 'body'
+  });
+
+  const response = await request.get('/recipes/1');
+
+  expect(response.status).toBe(200);
+  expect(response.body.id).toBe(1);
+  expect(response.body.title).toBe('title');
+  expect(response.body.body).toBe('body');
+  done();
+});
+
 it('PUT /recipes', async done => {
   await database.models.recipe.create({
     title: 'title',
@@ -66,7 +81,6 @@ it('PUT /recipes', async done => {
   expect(await database.models.recipe.count()).toBe(1);
   done();
 });
-
 
 it('PATCH /recipes', async done => {
   await database.models.recipe.create({
