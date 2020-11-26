@@ -16,6 +16,26 @@ Create a new configuration file off of the sample one:
 
 `docker-compose up`
 
+## API Endpoints
+
+Once the server is running, the API is available at http://localhost:8080 (by default, can be changed by editing [`.env`](./.env))
+
+`GET /recipes`: Get all recipes
+
+`POST /recipes`: Create a recipe
+
+`GET /recipes/:id`: Get a recipe
+
+`PUT /recipes/:id`: Update a recipe entirely
+
+`PATCH /recipes/:id`: Update a recipe partially
+
+`DELETE /recipes/:id`: Delete a recipe
+
+Request payloads must be of type JSON.
+
+See `./tests/integration/recipe.test.js` for examples.
+
 ## Develop
 
 Use any editor compatible with devcontainers. Ideally [Microsoft Visual Studio Code](https://code.visualstudio.com/) or [Github Code Spaces](https://github.com/features/codespaces).
