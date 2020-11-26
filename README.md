@@ -1,5 +1,7 @@
 # Cuisine server
 
+An api server to store recipes and ingredients.
+
 ## Prerequisites
 
 [Docker](https://www.docker.com/get-started)
